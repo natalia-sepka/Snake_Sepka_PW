@@ -1,7 +1,7 @@
 import javax.swing.*;
 
-public class GameWindow extends JFrame {
-    GameWindow(){
+public class Window extends JFrame {
+    Window(){
         this.add(new Panel());
         this.setTitle("Snake Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

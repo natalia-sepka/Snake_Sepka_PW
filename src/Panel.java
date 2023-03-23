@@ -107,15 +107,15 @@ public class Panel extends JPanel implements ActionListener {
                 running = false;
             }
         }
-        //checks if the snake touches left border
+        //checks if snake touches left border
         if (x[0] < 0){
             running = false;
         }
-        //checks if the snake touches right border
+        //checks if snake touches right border
         if (x[0] > WIDTH){
             running = false;
         }
-        //checks if the snake touches top border
+        //checks if snake touches top border
         if(y[0] < 0){
             running = false;
         }
