@@ -168,7 +168,7 @@ public class Panel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (running){
-            new MoveSnake(snakeSize, UNIT_SIZE, x, y, direction).moveSnake();
+            new SnakeController(snakeSize, UNIT_SIZE, x, y, direction).moveSnake();
             checkFood();
             checkCollisions();
         }

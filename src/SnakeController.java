@@ -1,10 +1,10 @@
-public class MoveSnake {
+public class SnakeController {
     int UNIT_SIZE;
     int snakeSize;
     int x[];
     int y[];
     char direction;
-    public MoveSnake(int snakeSize, int UNIT_SIZE, int x[], int y[], char direction){
+    public SnakeController(int snakeSize, int UNIT_SIZE, int x[], int y[], char direction){
         this.snakeSize = snakeSize;
         this.UNIT_SIZE = UNIT_SIZE;
         this.x = x;
