@@ -82,30 +82,7 @@ public class Panel extends JPanel implements ActionListener {
             gameOver(g);
         }
     }
-    //moveSnake the snake
-   /* public void moveSnake(){
-        //shifting the body parts of the snake around
-        for (int i = snakeSize; i > 0; i--){
-            x[i] = x[i-1];
-            y[i] = y[i-1];
-        }
-        //changing the direction of where the snake is heading
-        switch (direction){
-            case 'U':
-                y[0] = y[0] - UNIT_SIZE;
-                break;
-            case 'D':
-                y[0] = y[0] + UNIT_SIZE;
-                break;
-            case 'R':
-                x[0] = x[0] + UNIT_SIZE;
-                break;
-            case 'L':
-                x[0] = x[0] - UNIT_SIZE;
-                break;
-        }
-    }*/
-    //generate food
+
     public void newFood(){
         foodX = random.nextInt((int)(WIDTH/UNIT_SIZE))*UNIT_SIZE;
         foodY = random.nextInt((int)(HEIGHT/UNIT_SIZE))*UNIT_SIZE;
@@ -179,29 +156,7 @@ public class Panel extends JPanel implements ActionListener {
         //coding keys functionality
         @Override
         public void keyPressed(KeyEvent e) {
-            switch (e.getKeyCode()){
-                case KeyEvent.VK_LEFT:
-                    if(direction != 'R'){
-                        direction = 'L';
-                    }
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    if(direction != 'L'){
-                        direction = 'R';
-                    }
-                    break;
-                case KeyEvent.VK_UP:
-                    if(direction != 'D'){
-                        direction = 'U';
-                    }
-                    break;
-                case KeyEvent.VK_DOWN:
-                    if(direction != 'U'){
-                        direction = 'D';
-                    }
-                    break;
-            }
-
+            direction = PanelController.controlPanel(e, direction);
         }
     }
 }
