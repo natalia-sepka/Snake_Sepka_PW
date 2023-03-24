@@ -95,6 +95,8 @@ public class Panel extends JPanel implements ActionListener {
             snakeSize++;
             //increments game score
             foodEaten++;
+            //makes sound
+            MakeSound.makeSound("/Users/mac/Desktop/java/mixkit-retro-game-notification-212.wav");
             //generates new food
             newFood();
         }
@@ -125,6 +127,7 @@ public class Panel extends JPanel implements ActionListener {
         }
         if (!running){
             timer.stop();
+            MakeSound.makeSound("/Users/mac/Desktop/java/mixkit-funny-game-over-2878.wav");
         }
     }
 
