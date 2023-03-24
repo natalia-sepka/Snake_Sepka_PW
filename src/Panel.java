@@ -8,9 +8,9 @@ import java.util.Random;
 
 public class Panel extends JPanel implements ActionListener {
     //screen width
-    static final int WIDTH = 500;
+    static final int WIDTH = 600;
     //screen height
-    static final int HEIGHT = 500;
+    static final int HEIGHT = 600;
     //size of the single cell of the snake and food
     static final int UNIT_SIZE = 20;
     //the object (snake) amount which can be shown on the screen
@@ -33,6 +33,8 @@ public class Panel extends JPanel implements ActionListener {
     char direction = 'R';
     //is the snake running at the beginning of the game
     boolean running = false;
+    //level
+    int level = 1;
     Timer timer;
     Random random;
     Panel(){
@@ -41,8 +43,8 @@ public class Panel extends JPanel implements ActionListener {
         //preferred size of Panel
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         //background color
-        this.setBackground(Color.black);
-        //set the focus
+        this.setBackground(Color.gray);
+        //set focus
         this.setFocusable(true);
         //add event handling
         this.addKeyListener(new MyKeyAdapter());
@@ -76,8 +78,8 @@ public class Panel extends JPanel implements ActionListener {
             g.setColor(Color.BLUE);
             g.setFont(new Font("Ink Free", Font.BOLD, 25));
             FontMetrics metrics = getFontMetrics(g.getFont());
-            g.drawString("Score: " + foodEaten, (WIDTH - metrics.stringWidth("Score: " + foodEaten))/2,
-                    g.getFont().getSize());
+            g.drawString("Score: " + foodEaten + "Poziom: " + level, (WIDTH - metrics.stringWidth("Score: " +
+                            foodEaten + "Poziom: " + level))/2, g.getFont().getSize());
         } else {
             gameOver(g);
         }
@@ -95,6 +97,9 @@ public class Panel extends JPanel implements ActionListener {
             snakeSize++;
             //increments game score
             foodEaten++;
+            if (foodEaten %10 == 0){
+                level++;
+            }
             //makes sound
             MakeSound.makeSound("/Users/mac/Desktop/java/mixkit-retro-game-notification-212.wav");
             //generates new food
@@ -137,12 +142,12 @@ public class Panel extends JPanel implements ActionListener {
         g.setFont(new Font("Ink Free", Font.BOLD, 25));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("Score: " + foodEaten, (WIDTH - metrics1.stringWidth("Score: " + foodEaten))/2,
-                /*g.getFont().getSize()*/ HEIGHT/3);
+                g.getFont().getSize());
         //display game over text
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 60));
-        //FontMetrics metrics2 = getFontMetrics(g.getFont());
-        g.drawString("GAME OVER", WIDTH/8 /*- metrics2.stringWidth("GAME OVER"))/2*/, HEIGHT/2);
+        FontMetrics metrics2 = getFontMetrics(g.getFont());
+        g.drawString("GAME OVER", (WIDTH - metrics2.stringWidth("GAME OVER"))/2, HEIGHT/2);
     }
 
     @Override
