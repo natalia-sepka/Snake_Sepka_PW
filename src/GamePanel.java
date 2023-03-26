@@ -6,14 +6,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
-public class Panel extends JPanel implements ActionListener {
+public class GamePanel extends JPanel implements ActionListener {
     //screen width
-    static final int WIDTH = 500;
+    static final int WIDTH = 600;
     //screen height
     static final int HEIGHT = 500;
     //size of the single cell of the snake and food
     static final int UNIT_SIZE = 20;
-    //the object (snake) amount which can be shown on the screen
+    //the object (snake) amount which can be shown on screen
     static final int GAME_UNITS = (WIDTH*HEIGHT)/UNIT_SIZE;
     //x coordinate of the snake
     final int x[] = new int[GAME_UNITS];
@@ -37,8 +37,8 @@ public class Panel extends JPanel implements ActionListener {
     int level = 1;
     Timer timer;
     Random random;
-    Panel(){
-        //instance of the Random class
+    GamePanel(){
+        //instance of Random class
         random = new Random();
         //preferred size of Panel
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -63,13 +63,13 @@ public class Panel extends JPanel implements ActionListener {
         super.paintComponent(g);
         draw(g);
     }
-    //draw elements on the screen
+    //draw elements on screen
     public void draw(Graphics g){
         if(running){
             //drawing the color of food
             g.setColor(Color.GREEN);
             g.fillRect(foodX, foodY, UNIT_SIZE, UNIT_SIZE);
-            //drawing the snake
+            //drawing snake
             for (int i = 0; i < snakeSize; i++) {
                 g.setColor(Color.PINK);
                 g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
@@ -78,8 +78,8 @@ public class Panel extends JPanel implements ActionListener {
             g.setColor(Color.BLUE);
             g.setFont(new Font("Ink Free", Font.BOLD, 25));
             FontMetrics metrics = getFontMetrics(g.getFont());
-            g.drawString("Score: " + foodEaten + "Poziom: " + level, (WIDTH - metrics.stringWidth("Score: " +
-                            foodEaten + "Poziom: " + level))/2, g.getFont().getSize());
+            g.drawString("Score: " + foodEaten + "Level: " + level, (WIDTH - metrics.stringWidth("Score: " +
+                            foodEaten + "Level: " + level))/2, g.getFont().getSize());
         } else {
             gameOver(g);
         }
@@ -125,7 +125,7 @@ public class Panel extends JPanel implements ActionListener {
             running = false;
         }
         //checks if snake touches right border
-        if (x[0] > WIDTH){
+        if (x[0] >= WIDTH){
             running = false;
         }
         //checks if snake touches top border
@@ -133,7 +133,7 @@ public class Panel extends JPanel implements ActionListener {
             running = false;
         }
         //checks if the snake touches bottom border
-        if (y[0] > HEIGHT){
+        if (y[0] >= HEIGHT){
             running = false;
         }
         if (!running){
