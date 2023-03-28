@@ -37,7 +37,9 @@ public class GamePanel extends JPanel implements ActionListener {
     int level = 1;
     Timer timer;
     Random random;
-    GamePanel(){
+    SendResultsCallback sendResultsCallback;
+    GamePanel(SendResultsCallback sendResultsCallback){
+        this.sendResultsCallback = sendResultsCallback;
         //instance of Random class
         random = new Random();
         //preferred size of Panel
@@ -97,12 +99,13 @@ public class GamePanel extends JPanel implements ActionListener {
             snakeSize++;
             //increments game score
             foodEaten++;
+            sendResultsCallback.sendFoodEaten(foodEaten);
             //increments level and decrements timer
             if ((foodEaten %10 == 0) && (running)){
                 level++;
                 MakeSound.makeSound("/Users/mac/Desktop/java/mixkit-arcade-bonus-alert-767.wav");
                 timer.stop();
-                delay-=5;
+                delay -= 5;
                 timer = new Timer(delay, this);
                 timer.start();
             }
@@ -114,7 +117,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkCollisions(){
-        //checks if the snake touches itself
+        //checks if snake touches itself
         for (int i = snakeSize; i > 0; i--) {
             if ((x[0] == x[i]) && (y[0] == y[i])){
                 running = false;
@@ -132,7 +135,7 @@ public class GamePanel extends JPanel implements ActionListener {
         if(y[0] < 0){
             running = false;
         }
-        //checks if the snake touches bottom border
+        //checks if snake touches bottom border
         if (y[0] >= HEIGHT){
             running = false;
         }
@@ -171,6 +174,7 @@ public class GamePanel extends JPanel implements ActionListener {
         @Override
         public void keyPressed(KeyEvent e) {
             direction = PanelController.controlPanel(e, direction);
+            System.out.println("direction: " + direction);
         }
     }
 }
