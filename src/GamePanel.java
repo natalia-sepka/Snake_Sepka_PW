@@ -8,13 +8,13 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
     //screen width
-    static final int WIDTH = 600;
+    static final int GP_WIDTH = 600;
     //screen height
-    static final int HEIGHT = 500;
+    static final int GP_HEIGHT = 500;
     //size of the single cell of the snake and food
     static final int UNIT_SIZE = 20;
     //the object (snake) amount which can be shown on screen
-    static final int GAME_UNITS = (WIDTH*HEIGHT)/UNIT_SIZE;
+    static final int GAME_UNITS = (GP_WIDTH * GP_HEIGHT)/UNIT_SIZE;
     //x coordinate of the snake
     final int x[] = new int[GAME_UNITS];
     //y coordinate of the snake
@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements ActionListener {
         //instance of Random class
         random = new Random();
         //preferred size of Panel
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.setSize(new Dimension(GP_WIDTH, GP_HEIGHT));
         //background color
         this.setBackground(Color.gray);
         //set focus
@@ -68,28 +68,24 @@ public class GamePanel extends JPanel implements ActionListener {
     //draw elements on screen
     public void draw(Graphics g){
         if(running){
-            //drawing the color of food
-            g.setColor(Color.GREEN);
+            //drawing color of food
+            g.setColor(Color.BLUE);
             g.fillRect(foodX, foodY, UNIT_SIZE, UNIT_SIZE);
             //drawing snake
             for (int i = 0; i < snakeSize; i++) {
                 g.setColor(Color.PINK);
                 g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
             }
-            //showing score on the screen
-            g.setColor(Color.BLUE);
-            g.setFont(new Font("Ink Free", Font.BOLD, 25));
-            FontMetrics metrics = getFontMetrics(g.getFont());
-            g.drawString("Score: " + foodEaten + "Level: " + level, (WIDTH - metrics.stringWidth("Score: " +
-                            foodEaten + "Level: " + level))/2, g.getFont().getSize());
         } else {
             gameOver(g);
         }
     }
 
     public void newFood(){
-        foodX = random.nextInt((int)(WIDTH/UNIT_SIZE))*UNIT_SIZE;
-        foodY = random.nextInt((int)(HEIGHT/UNIT_SIZE))*UNIT_SIZE;
+        foodX = random.nextInt((int)((GP_WIDTH-(2*BlankPanel.MIN_DIMENSION))/UNIT_SIZE))*UNIT_SIZE;
+        System.out.println("Współrzędna x: " + foodX);
+        foodY = random.nextInt((int)(GP_HEIGHT/UNIT_SIZE))*UNIT_SIZE;
+        System.out.println("Współrzędna y: " + foodY);
     }
 
     public void checkFood(){
@@ -99,10 +95,11 @@ public class GamePanel extends JPanel implements ActionListener {
             snakeSize++;
             //increments game score
             foodEaten++;
-            sendResultsCallback.sendFoodEaten(foodEaten);
+            sendResultsCallback.sendResults(foodEaten, level);
             //increments level and decrements timer
             if ((foodEaten %10 == 0) && (running)){
                 level++;
+                sendResultsCallback.sendResults(foodEaten, level);
                 MakeSound.makeSound("/Users/mac/Desktop/java/mixkit-arcade-bonus-alert-767.wav");
                 timer.stop();
                 delay -= 5;
@@ -128,7 +125,7 @@ public class GamePanel extends JPanel implements ActionListener {
             running = false;
         }
         //checks if snake touches right border
-        if (x[0] >= WIDTH){
+        if (x[0] >= GP_WIDTH){
             running = false;
         }
         //checks if snake touches top border
@@ -136,7 +133,7 @@ public class GamePanel extends JPanel implements ActionListener {
             running = false;
         }
         //checks if snake touches bottom border
-        if (y[0] >= HEIGHT){
+        if (y[0] >= GP_HEIGHT){
             running = false;
         }
         if (!running){
@@ -147,16 +144,16 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void gameOver(Graphics g){
         //display score
-        g.setColor(Color.yellow);
+        g.setColor(Color.white);
         g.setFont(new Font("Ink Free", Font.BOLD, 25));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
-        g.drawString("Score: " + foodEaten, (WIDTH - metrics1.stringWidth("Score: " + foodEaten))/2,
-                g.getFont().getSize());
+        g.drawString("Twój wynik: " + foodEaten, (GP_WIDTH - metrics1.stringWidth("Twój wynik: " + foodEaten))/2,
+                GP_HEIGHT/2);
         //display game over text
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 60));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
-        g.drawString("GAME OVER", (WIDTH - metrics2.stringWidth("GAME OVER"))/2, HEIGHT/2);
+        g.drawString("GAME OVER", (GP_WIDTH - metrics2.stringWidth("GAME OVER"))/2, GP_HEIGHT/3);
     }
 
     @Override

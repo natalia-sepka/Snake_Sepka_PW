@@ -1,3 +1,3 @@
 public interface SendResultsCallback {
-    public void sendFoodEaten(int foodEaten);
+    public void sendResults(int foodEaten, int level);
 }
