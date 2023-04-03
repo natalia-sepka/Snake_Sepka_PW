@@ -12,12 +12,12 @@ public class SnakeController {
         this.direction = direction;
     }
     public void moveSnake(){
-        //shifting the body parts of the snake around
+        //shifting body parts of snake around
         for (int i = snakeSize; i > 0; i--){
             x[i] = x[i-1];
             y[i] = y[i-1];
         }
-        //changing the direction of where the snake is heading
+        //changing direction of where snake is heading
         switch (direction){
             case 'U':
                 y[0] = y[0] - UNIT_SIZE;

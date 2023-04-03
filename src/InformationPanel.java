@@ -25,16 +25,23 @@ public class InformationPanel extends JPanel {
     }
 
     public void draw(Graphics g) {
+        //drawing score on panel
         g.setColor(Color.white);
         g.setFont(new Font("Ink Free", Font.BOLD, 25));
         FontMetrics metrics = getFontMetrics(g.getFont());
-        g.drawString("Punkty: " + foodEaten, (WIDTH - metrics.stringWidth("Punkty: " + foodEaten))/2,
-                HEIGHT/2);
-
+        g.drawString("Score: " + foodEaten, (WIDTH - metrics.stringWidth("Score: " + foodEaten))/2,
+                HEIGHT/3);
+        //drawing level on panel
         g.setColor(Color.white);
         g.setFont(new Font("Ink Free", Font.BOLD, 25));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
-        g.drawString("Poziom: " + level, (WIDTH - metrics2.stringWidth("Poziom: " + level))/2,
-                HEIGHT/3);
+        g.drawString("Level: " + level, (WIDTH - metrics2.stringWidth("Level: " + level))/2,
+                HEIGHT/6);
+        //drawing keys legend on panel
+        g.setColor(Color.white);
+        g.setFont(new Font("Ink Free", Font.BOLD, 18));
+        FontMetrics metrics3 = getFontMetrics(g.getFont());
+        g.drawString("<- -> movement", (WIDTH - metrics2.stringWidth("<- -> movement"))/10,
+                HEIGHT);
     }
 }

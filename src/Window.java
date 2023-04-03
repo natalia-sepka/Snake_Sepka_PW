@@ -10,8 +10,6 @@ public class Window extends JFrame implements SendResultsCallback
         this.setTitle("Snake Game - NATALIA SĘPKA");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        //add(new GamePanel(this), BorderLayout.CENTER);
-
         this.setLocationRelativeTo(null);
         this.setSize(globalWidth, GamePanel.GP_HEIGHT);
 

@@ -11,27 +11,27 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int GP_WIDTH = 600;
     //screen height
     static final int GP_HEIGHT = 500;
-    //size of the single cell of the snake and food
+    //size of single cell of the snake and food
     static final int UNIT_SIZE = 20;
     //the object (snake) amount which can be shown on screen
     static final int GAME_UNITS = (GP_WIDTH * GP_HEIGHT)/UNIT_SIZE;
-    //x coordinate of the snake
+    //x coordinate of snake
     final int x[] = new int[GAME_UNITS];
-    //y coordinate of the snake
+    //y coordinate of snake
     final int y[] = new int[GAME_UNITS];
-    //how fast the snake is moving
+    //how fast snake is moving
     int delay = 125;
-    //how big is the snake
+    //how big is snake
     int snakeSize = 6;
-    //how much food the snake has eaten
+    //how much food snake has eaten
     int foodEaten;
-    //x position of where the food is located, generated  randomly
+    //x position of where food is located, generated  randomly
     int foodX;
-    //y position of where the food is located, generated randomly
+    //y position of where food is located, generated randomly
     int foodY;
     //snake direction at the moment of starting the game
     char direction = 'R';
-    //is the snake running at the beginning of the game
+    //is snake running at the beginning of the game
     boolean running = false;
     //level
     int level = 1;
@@ -95,19 +95,18 @@ public class GamePanel extends JPanel implements ActionListener {
             snakeSize++;
             //increments game score
             foodEaten++;
-            sendResultsCallback.sendResults(foodEaten, level);
             //increments level and decrements timer
             if ((foodEaten %10 == 0) && (running)){
                 level++;
-                sendResultsCallback.sendResults(foodEaten, level);
-                MakeSound.makeSound("/Users/mac/Desktop/java/mixkit-arcade-bonus-alert-767.wav");
+                MakeSound.playNewLevel();
                 timer.stop();
                 delay -= 5;
                 timer = new Timer(delay, this);
                 timer.start();
             }
+            sendResultsCallback.sendResults(foodEaten, level);
             //makes sound
-            MakeSound.makeSound("/Users/mac/Desktop/java/mixkit-retro-game-notification-212.wav");
+            MakeSound.playScore();
             //generates new food
             newFood();
         }
@@ -138,7 +137,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         if (!running){
             timer.stop();
-            MakeSound.makeSound("/Users/mac/Desktop/java/mixkit-funny-game-over-2878.wav");
+            MakeSound.playGameOver();
         }
     }
 
@@ -147,7 +146,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(Color.white);
         g.setFont(new Font("Ink Free", Font.BOLD, 25));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
-        g.drawString("Twój wynik: " + foodEaten, (GP_WIDTH - metrics1.stringWidth("Twój wynik: " + foodEaten))/2,
+        g.drawString("Your score: " + foodEaten, (GP_WIDTH - metrics1.stringWidth("Your score: " + foodEaten))/2,
                 GP_HEIGHT/2);
         //display game over text
         g.setColor(Color.red);

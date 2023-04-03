@@ -3,19 +3,52 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 
 public class MakeSound {
-    String file;
-    public MakeSound(String file) {
-        this.file = file;
+    String fileName;
+    public MakeSound(String fileName) {
+        this.fileName = fileName;
     }
-    public static void makeSound(String file){
-        File sound = new File(file);
+    public static void playGameOver(){
+        File sound = new File("src/game_over.wav");
 
-        try{
-            Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(sound));
-            clip.start();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        new Thread(){
+            public void run(){
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(sound));
+                    clip.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+    public static void playScore(){
+        File sound = new File("src/score.wav");
+
+        new Thread(){
+            public void run(){
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(sound));
+                    clip.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+    public static void playNewLevel(){
+        File sound = new File("src/level.wav");
+        new Thread(){
+            public void run(){
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(AudioSystem.getAudioInputStream(sound));
+                    clip.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }
