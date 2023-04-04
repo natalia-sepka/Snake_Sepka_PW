@@ -1,4 +1,5 @@
 import java.awt.event.KeyEvent;
+import java.util.Scanner;
 
 public class PanelController {
 
@@ -24,6 +25,10 @@ public class PanelController {
                 if (direction != 'U') {
                     return 'D';
                 }
+            }
+            case KeyEvent.VK_ENTER ->
+            {
+                return 'E';
             }
         }
         return 'Z'; //returns dummy char

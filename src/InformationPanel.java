@@ -39,9 +39,9 @@ public class InformationPanel extends JPanel {
                 HEIGHT/6);
         //drawing keys legend on panel
         g.setColor(Color.white);
-        g.setFont(new Font("Ink Free", Font.BOLD, 18));
+        g.setFont(new Font("Ink Free", Font.BOLD, 15));
         FontMetrics metrics3 = getFontMetrics(g.getFont());
-        g.drawString("<- -> movement", (WIDTH - metrics2.stringWidth("<- -> movement"))/10,
+        g.drawString("<- -> movement", (WIDTH - metrics3.stringWidth("<- -> movement"))/2,
                 HEIGHT);
     }
 }

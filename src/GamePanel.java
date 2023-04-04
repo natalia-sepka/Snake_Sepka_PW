@@ -1,12 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.Random;
 
-public class GamePanel extends JPanel implements ActionListener {
+public class GamePanel extends JPanel implements ActionListener, MouseListener {
     //screen width
     static final int GP_WIDTH = 600;
     //screen height
@@ -33,6 +30,7 @@ public class GamePanel extends JPanel implements ActionListener {
     char direction = 'R';
     //is snake running at the beginning of the game
     boolean running = false;
+    boolean pause = false;
     //level
     int level = 1;
     Timer timer;
@@ -40,6 +38,7 @@ public class GamePanel extends JPanel implements ActionListener {
     SendResultsCallback sendResultsCallback;
     GamePanel(SendResultsCallback sendResultsCallback){
         this.sendResultsCallback = sendResultsCallback;
+        addMouseListener(this);
         //instance of Random class
         random = new Random();
         //preferred size of Panel
@@ -68,14 +67,23 @@ public class GamePanel extends JPanel implements ActionListener {
     //draw elements on screen
     public void draw(Graphics g){
         if(running){
-            //drawing color of food
-            g.setColor(Color.BLUE);
-            g.fillRect(foodX, foodY, UNIT_SIZE, UNIT_SIZE);
-            //drawing snake
-            for (int i = 0; i < snakeSize; i++) {
-                g.setColor(Color.PINK);
-                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+            if (!pause){
+                //drawing color of food
+                g.setColor(Color.BLUE);
+                g.fillRect(foodX, foodY, UNIT_SIZE, UNIT_SIZE);
+                //drawing snake
+                for (int i = 0; i < snakeSize; i++) {
+                    g.setColor(Color.PINK);
+                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+                }
+            } else {
+                running = false;
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("Ink Free", Font.BOLD, 60));
+                FontMetrics metrics2 = getFontMetrics(g.getFont());
+                g.drawString("PAUSE", (GP_WIDTH - metrics2.stringWidth("PAUSE"))/2, GP_HEIGHT/2);
             }
+            running = true;
         } else {
             gameOver(g);
         }
@@ -89,7 +97,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkFood(){
-        //checks if snake touches the food
+        //checks if snake touches food
         if ((x[0] == foodX) && (y[0] == foodY)){
             //increments snake size
             snakeSize++;
@@ -157,12 +165,37 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (running){
+        if (running && !pause){
             new SnakeController(snakeSize, UNIT_SIZE, x, y, direction).moveSnake();
             checkFood();
             checkCollisions();
         }
         repaint();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (!running) {
+            running = true;
+        } else
+            pause =! pause;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 
     public class MyKeyAdapter extends KeyAdapter{

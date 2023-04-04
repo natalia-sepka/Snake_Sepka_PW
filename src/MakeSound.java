@@ -3,10 +3,8 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 
 public class MakeSound {
-    String fileName;
-    public MakeSound(String fileName) {
-        this.fileName = fileName;
-    }
+    //String fileName;
+    //public MakeSound();
     public static void playGameOver(){
         File sound = new File("src/game_over.wav");
 
