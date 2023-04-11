@@ -1,3 +1,4 @@
+/**klasa obsługująca poruszanie się po panelu*/
 public class SnakeController {
     int UNIT_SIZE;
     int snakeSize;
@@ -11,11 +12,12 @@ public class SnakeController {
         this.y = y;
         this.direction = direction;
     }
-    public void moveSnake(){
+    /**metoda obsługuje poruszanie Snake'a */
+    public void moveSnake() {
         //shifting body parts of snake around
-        for (int i = snakeSize; i > 0; i--){
-            x[i] = x[i-1];
-            y[i] = y[i-1];
+        for (int i = snakeSize; i > 0; i--) {
+            x[i] = x[i - 1];
+            y[i] = y[i - 1];
         }
         //changing direction of where snake is heading
         switch (direction){

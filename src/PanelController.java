@@ -1,8 +1,9 @@
 import java.awt.event.KeyEvent;
-import java.util.Scanner;
 
+/**klasa obsługujaca funkcjonalność klawiatury*/
 public class PanelController {
 
+    /**metoda obsługuje funkcjonalność klawiszy*/
     //coding keys functionality
     public static char controlPanel(KeyEvent e, char direction) {
         switch (e.getKeyCode()) {
@@ -26,11 +27,8 @@ public class PanelController {
                     return 'D';
                 }
             }
-            case KeyEvent.VK_ENTER ->
-            {
-                return 'E';
-            }
         }
-        return 'Z'; //returns dummy char
+        //every other pressed key moves snake down
+        return 'D';
     }
 }

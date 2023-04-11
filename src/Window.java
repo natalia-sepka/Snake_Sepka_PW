@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**klasa ma za zadanie utworzyć okno i wszystkie panele gry*/
 public class Window extends JFrame implements SendResultsCallback
  {
     InformationPanel informationPanel;
@@ -14,7 +15,6 @@ public class Window extends JFrame implements SendResultsCallback
         this.setSize(globalWidth, GamePanel.GP_HEIGHT);
 
         informationPanel = new InformationPanel();
-
         add(informationPanel, BorderLayout.EAST);
         add(new GamePanel(this), BorderLayout.CENTER);
         add(new BlankPanel(BlankPanel.MIN_DIMENSION, GamePanel.GP_HEIGHT), BorderLayout.WEST);

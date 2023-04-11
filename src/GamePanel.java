@@ -3,12 +3,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 
+/**klasa obsługująca wszystkie elementy i akcje w panelu gry */
 public class GamePanel extends JPanel implements ActionListener, MouseListener {
     //screen width
     static final int GP_WIDTH = 600;
     //screen height
     static final int GP_HEIGHT = 500;
-    //size of single cell of the snake and food
+    //size of single cell of snake and food
     static final int UNIT_SIZE = 20;
     //the object (snake) amount which can be shown on screen
     static final int GAME_UNITS = (GP_WIDTH * GP_HEIGHT)/UNIT_SIZE;
@@ -60,10 +61,12 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
         timer.start();
     }
 
+    /**metoda umożliwia rysowanie*/
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         draw(g);
     }
+    /**metoda rysuje wszystkie informacje na panelu*/
     //draw elements on screen
     public void draw(Graphics g){
         if(running){
@@ -88,14 +91,14 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
             gameOver(g);
         }
     }
-
+    /**metoda generuje "jedzenie"*/
     public void newFood(){
         foodX = random.nextInt((int)((GP_WIDTH-(2*BlankPanel.MIN_DIMENSION))/UNIT_SIZE))*UNIT_SIZE;
-        System.out.println("Współrzędna x: " + foodX);
+        //System.out.println("Współrzędna x: " + foodX);
         foodY = random.nextInt((int)(GP_HEIGHT/UNIT_SIZE))*UNIT_SIZE;
-        System.out.println("Współrzędna y: " + foodY);
+        //System.out.println("Współrzędna y: " + foodY);
     }
-
+    /**metoda sprawdza czy snake dotknął "jedzenia" */
     public void checkFood(){
         //checks if snake touches food
         if ((x[0] == foodX) && (y[0] == foodY)){
@@ -119,7 +122,7 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
             newFood();
         }
     }
-
+    /**metoda sprawdza czy snake nie dotyka siebie lub którejś z krawędzi panelu*/
     public void checkCollisions(){
         //checks if snake touches itself
         for (int i = snakeSize; i > 0; i--) {
@@ -148,21 +151,27 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
             MakeSound.playGameOver();
         }
     }
-
+    /**metoda rysuje ekran po zakończeniu gryo*/
     public void gameOver(Graphics g){
-        //display score
+        //displays score
         g.setColor(Color.white);
         g.setFont(new Font("Ink Free", Font.BOLD, 25));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("Your score: " + foodEaten, (GP_WIDTH - metrics1.stringWidth("Your score: " + foodEaten))/2,
                 GP_HEIGHT/2);
-        //display game over text
+        //displays level
+        g.setColor(Color.white);
+        g.setFont(new Font("Ink Free", Font.BOLD, 25));
+        FontMetrics metrics2 = getFontMetrics(g.getFont());
+        g.drawString("Your level: " + level, (GP_WIDTH - metrics2.stringWidth("Your level: " + level))/2,
+                (GP_HEIGHT/2)+50);
+        //displays game over text
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 60));
-        FontMetrics metrics2 = getFontMetrics(g.getFont());
-        g.drawString("GAME OVER", (GP_WIDTH - metrics2.stringWidth("GAME OVER"))/2, GP_HEIGHT/3);
+        FontMetrics metrics3 = getFontMetrics(g.getFont());
+        g.drawString("GAME OVER", (GP_WIDTH - metrics3.stringWidth("GAME OVER"))/2, (GP_HEIGHT/4)+50);
     }
-
+    /**metoda odpowiada za obsługę zdarzeń*/
     @Override
     public void actionPerformed(ActionEvent e) {
         if (running && !pause){
@@ -175,9 +184,8 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
-
+    /**metoda obsługuje zdarzenia kliknięcia myszką*/
     @Override
     public void mousePressed(MouseEvent e) {
         if (!running) {
@@ -200,10 +208,11 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
 
     public class MyKeyAdapter extends KeyAdapter{
         //coding keys functionality
+        /**metoda wywoływana po wciśnięciu przycisku*/
         @Override
         public void keyPressed(KeyEvent e) {
             direction = PanelController.controlPanel(e, direction);
-            System.out.println("direction: " + direction);
+            //System.out.println("direction: " + direction);
         }
     }
 }

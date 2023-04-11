@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**klasa ma za zadanie utworzyć panel boczny*/
 public class InformationPanel extends JPanel {
 
     static final int WIDTH = 200;
@@ -12,24 +13,24 @@ public class InformationPanel extends JPanel {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setBackground(Color.DARK_GRAY);
     }
-
+    /**metoda ma za uaktualniać level i punkty*/
     public void updateValues(int foodEaten, int level) {
-        //System.out.println("Received food: " + foodEaten);
         this.foodEaten = foodEaten;
         this.level = level;
         repaint();
     }
+    /**metoda umożliwia rysowanie*/
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
     }
-
+    /**metoda rysuje wszystkie informacje na panelu*/
     public void draw(Graphics g) {
         //drawing score on panel
         g.setColor(Color.white);
         g.setFont(new Font("Ink Free", Font.BOLD, 25));
-        FontMetrics metrics = getFontMetrics(g.getFont());
-        g.drawString("Score: " + foodEaten, (WIDTH - metrics.stringWidth("Score: " + foodEaten))/2,
+        FontMetrics metrics1 = getFontMetrics(g.getFont());
+        g.drawString("Score: " + foodEaten, (WIDTH - metrics1.stringWidth("Score: " + foodEaten))/2,
                 HEIGHT/3);
         //drawing level on panel
         g.setColor(Color.white);
@@ -41,7 +42,17 @@ public class InformationPanel extends JPanel {
         g.setColor(Color.white);
         g.setFont(new Font("Ink Free", Font.BOLD, 15));
         FontMetrics metrics3 = getFontMetrics(g.getFont());
-        g.drawString("<- -> movement", (WIDTH - metrics3.stringWidth("<- -> movement"))/2,
-                HEIGHT);
+        g.drawString("KEYS:", (WIDTH - metrics3.stringWidth("KEYS:"))/2,
+                HEIGHT - 60);
+        g.setColor(Color.white);
+        g.setFont(new Font("Ink Free", Font.BOLD, 15));
+        FontMetrics metrics4 = getFontMetrics(g.getFont());
+        g.drawString("<- -> = movement", (WIDTH - metrics4.stringWidth("<- -> = movement"))/2,
+                HEIGHT - 30);
+        g.setColor(Color.white);
+        g.setFont(new Font("Ink Free", Font.BOLD, 15));
+        FontMetrics metrics5 = getFontMetrics(g.getFont());
+        g.drawString("mouse = play/pause", (WIDTH - metrics5.stringWidth("mouse = play/pause"))/2,
+                HEIGHT - 10);
     }
 }
