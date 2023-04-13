@@ -6,16 +6,16 @@ public class InformationPanel extends JPanel {
 
     static final int WIDTH = 200;
     static final int HEIGHT = 500;
-    int foodEaten;
+    int score;
     int level = 1;
 
     InformationPanel() {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setBackground(Color.DARK_GRAY);
     }
-    /**metoda ma za uaktualniać level i punkty*/
-    public void updateValues(int foodEaten, int level) {
-        this.foodEaten = foodEaten;
+    /**metoda ma za zadanie uaktualniać level i punkty*/
+    public void updateValues(int score, int level) {
+        this.score = score;
         this.level = level;
         repaint();
     }
@@ -30,7 +30,7 @@ public class InformationPanel extends JPanel {
         g.setColor(Color.white);
         g.setFont(new Font("Ink Free", Font.BOLD, 25));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
-        g.drawString("Score: " + foodEaten, (WIDTH - metrics1.stringWidth("Score: " + foodEaten))/2,
+        g.drawString("Score: " + score, (WIDTH - metrics1.stringWidth("Score: " + score))/2,
                 HEIGHT/3);
         //drawing level on panel
         g.setColor(Color.white);

@@ -11,7 +11,6 @@ public class Window extends JFrame implements SendResultsCallback
         this.setTitle("Snake Game - NATALIA SĘPKA");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
         this.setSize(globalWidth, GamePanel.GP_HEIGHT);
 
         informationPanel = new InformationPanel();
@@ -23,10 +22,11 @@ public class Window extends JFrame implements SendResultsCallback
 
         this.pack();
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
     }
 
     @Override
-    public void sendResults(int foodEaten, int level) {
-        informationPanel.updateValues(foodEaten, level);
+    public void sendResults(int score, int level) {
+        informationPanel.updateValues(score, level);
     }
 }
