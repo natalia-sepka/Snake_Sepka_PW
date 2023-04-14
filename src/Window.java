@@ -6,6 +6,7 @@ public class Window extends JFrame implements SendResultsCallback
  {
     InformationPanel informationPanel;
     Window(){
+        /**szerokość i wysokość okna*/
         int globalWidth = GamePanel.GP_WIDTH + InformationPanel.WIDTH;
 
         this.setTitle("Snake Game - NATALIA SĘPKA");

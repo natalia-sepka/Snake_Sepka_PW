@@ -3,7 +3,7 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 
 /**klasa obsługująca melodie w grze*/
-public class MakeSound {
+public class PlaySound {
     /**metoda odpowiada za melodię podczas przegranej*/
     public static void playGameOver(){
         File sound = new File("src/game_over.wav");

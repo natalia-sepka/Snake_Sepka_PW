@@ -3,10 +3,13 @@ import java.awt.*;
 
 /**klasa ma za zadanie utworzyć panel boczny*/
 public class InformationPanel extends JPanel {
-
+    /**szerokość panelu*/
     static final int WIDTH = 200;
+    /**wysokość panelu*/
     static final int HEIGHT = 500;
+    /**punkty gracza*/
     int score;
+    /**poziom gracza*/
     int level = 1;
 
     InformationPanel() {

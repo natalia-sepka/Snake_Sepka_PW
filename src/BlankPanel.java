@@ -3,6 +3,7 @@ import java.awt.*;
 
 /**klasa tworzy pusty panel*/
 public class BlankPanel extends JPanel {
+    /**minimalny rozmiar panelu*/
     static final int MIN_DIMENSION = 10;
     BlankPanel(int width, int height) {
         this.setPreferredSize(new Dimension(width, height));

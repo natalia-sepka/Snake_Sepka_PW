@@ -6,37 +6,56 @@ import java.util.Random;
 /**klasa obsługująca wszystkie elementy i akcje w panelu gry */
 public class GamePanel extends JPanel implements ActionListener {
     //screen width
+    /**szerokość panelu gry*/
     static final int GP_WIDTH = 600;
     //screen height
+    /**wysokość panelu gry*/
     static final int GP_HEIGHT = 500;
     //size of single cell of snake and food
+    /**wielkość pojedyńczej komórki, z której zbudowany jest snake*/
     static final int UNIT_SIZE = 20;
     //the object (snake) amount which can be shown on screen
+    /**ilość pojedyńczych komórek mieszczących się w panelu gry*/
     static final int GAME_UNITS = (GP_WIDTH * GP_HEIGHT)/UNIT_SIZE;
     //x coordinate of snake
+    /**współrzędne x snake*/
     final int x[] = new int[GAME_UNITS];
     //y coordinate of snake
+    /**współrzędne y snake*/
     final int y[] = new int[GAME_UNITS];
     //how fast snake is moving
+    /**prędkość poruszania się snake*/
     int delay = 125;
     //how big is snake
+    /**początkowa wielkość snake*/
     int snakeSize = 6;
     //how much food snake has eaten
+    /**punkty*/
     int score;
     //x position of where food is located, generated  randomly
+    /**współrzędne x pokarmu*/
     int foodX;
     //y position of where food is located, generated randomly
+    /**współrzędne y pokarmu*/
     int foodY;
     //snake direction at the moment of starting the game
+    /**początkowy kierunek snake*/
     char direction = 'R';
     //is snake running at the beginning of the game
+    /**start gry*/
     boolean running = false;
+    /**pauza*/
     boolean pause = false;
+    /**koniec gry*/
     boolean gameOver = false;
     //level
+    /**poziom gracza*/
     int level = 1;
+    /**obsługa wątku w tle*/
     Timer timer;
+    /**generuje losowy numer*/
     Random random;
+    /**aktualizacja wartości poziomu i punktów*/
     SendResultsCallback sendResultsCallback;
     GamePanel(SendResultsCallback sendResultsCallback){
         this.sendResultsCallback = sendResultsCallback;
@@ -179,7 +198,7 @@ public class GamePanel extends JPanel implements ActionListener {
             //increments level and decrements timer
             if ((score %10 == 0) && (running)){
                 level++;
-                MakeSound.playNewLevel();
+                PlaySound.playNewLevel();
                 timer.stop();
                 delay -= 5;
                 timer = new Timer(delay, this);
@@ -187,7 +206,7 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             sendResultsCallback.sendResults(score, level);
             //makes sound
-            MakeSound.playScore();
+            PlaySound.playScore();
             //generates new food
             newFood();
         }
@@ -223,7 +242,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         if (!running){
             timer.stop();
-            MakeSound.playGameOver();
+            PlaySound.playGameOver();
         }
     }
 
